@@ -1,5 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:new, :create]
 
   # GET /departments
   # GET /departments.json
@@ -27,8 +28,12 @@ class DepartmentsController < ApplicationController
   # POST /departments.json
   def create
     # params[:organization_id]
-    @department = Department.new(department_params)
-    @department.organization_id = params[:organization_id]
+    # @department = Department.new(department_params)
+    # @department.organization_id = params[:organization_id]
+    # @organization = Organization.find(params[:organization_id])
+    # @department.organization = @organization
+
+    @department = @organization.departments.new(department_params)
 
     respond_to do |format|
       if @department.save
@@ -74,5 +79,9 @@ class DepartmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
       params.require(:department).permit(:name, :organization_id)
+    end
+
+    def set_organization
+      @organization = Organization.find(params[:organization_id])
     end
 end
