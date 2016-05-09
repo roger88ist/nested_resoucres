@@ -14,6 +14,8 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/new
   def new
+    # params[:organization_id]
+    @orginzation = Organization.find(params[:organization_id])
     @department = Department.new
   end
 
