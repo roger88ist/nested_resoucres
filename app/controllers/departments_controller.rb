@@ -15,7 +15,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/new
   def new
     # params[:organization_id]
-    @orginzation = Organization.find(params[:organization_id])
+    @organization = Organization.find(params[:organization_id])
     @department = Department.new
   end
 
@@ -26,7 +26,9 @@ class DepartmentsController < ApplicationController
   # POST /departments
   # POST /departments.json
   def create
+    # params[:organization_id]
     @department = Department.new(department_params)
+    @department.organization_id = params[:organization_id]
 
     respond_to do |format|
       if @department.save
